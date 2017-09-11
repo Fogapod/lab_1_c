@@ -36,31 +36,27 @@ int is_temperature_correct(float t, char c){
 	else if (c == 'c'){
 		if (t >= -273.15) return 1;
 	}
-	else return 0;
 
 	printf("Temperature can't be below absolute zero!\n");
 	return 0;
 }
 
 void convert_from_c(float t){
-	if (is_temperature_correct(t, 'c')){
-		printf("%.2f F\n", convert_c_f(t));
-        	printf("%.2f K\n\n", convert_c_k(t));
-	}
+	if (! is_temperature_correct(t, 'c')) return;
+
+	printf("%.2f F\n%.2f K\n\n", convert_c_f(t), convert_c_k(t));
 }
 
 void convert_from_f(float t){
-	if (is_temperature_correct(t, 'f')){
-		printf("%.2f C\n", convert_f_c(t));
-                printf("%.2f K\n\n", convert_f_k(t));
-	}
+	if (! is_temperature_correct(t, 'f')) return;
+
+	printf("%.2f C\n%.2f K\n\n", convert_f_c(t), convert_f_k(t));
 }
 
 void convert_from_k(float t){
-	if (is_temperature_correct(t, 'k')){
-		printf("%.2f C\n", convert_k_c(t));
-                printf("%.2f F\n\n", convert_k_f(t));
-	}
+	if (! is_temperature_correct(t, 'k')) return;
+
+	printf("%.2f C\n%.2f F\n\n", convert_k_c(t), convert_k_f(t));
 }
 
 int main(int argc, char **argv){
@@ -99,4 +95,3 @@ int main(int argc, char **argv){
 
 	return 0;
 }
-
