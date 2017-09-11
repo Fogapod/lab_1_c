@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 float convert_c_f(int c){
 	return 0;
@@ -35,15 +36,15 @@ int main(){
 
 		input_temp = atoi(input_arr);
 
-		if (tolower(input_arr[-1]) == 'c'){
+		if (tolower(input_arr[strlen(input_arr) - 2]) == 'c'){
 			printf("%f F\n", convert_c_f(input_temp));
 			printf("%f K\n", convert_c_k(input_temp));
 		}
-		else if (tolower(input_arr[-1]) == 'f'){
+		else if (tolower(input_arr[strlen(input_arr) - 2]) == 'f'){
 			printf("%f C\n", convert_f_c(input_temp));
 			printf("%f K\n", convert_f_k(input_temp));
 		}
-		else if (tolower(input_arr[-1]) == 'k'){
+		else if (tolower(input_arr[strlen(input_arr) - 2]) == 'k'){
 			printf("%f C\n", convert_k_c(input_temp));
 			printf("%f F\n", convert_k_f(input_temp));
 		}
