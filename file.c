@@ -1,125 +1,100 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <stdlib.h>
+#include <ctype.h>
 
-float convert_c_f(int c)
-{
+float convert_c_f(float c){
 	return c * (9.0 / 5.0) + 32;
 }
 
-float convert_c_k(int c)
-{
+float convert_c_k(float c){
 	return c + 273.15;
 }
 
-float convert_f_c(int f){
+float convert_f_c(float f){
 	return (f - 32) * (5.0 / 9.0);
 }
 
-float convert_k_c(int k){
+float convert_k_c(float k){
 	return k - 273.15;
 }
 
-float convert_k_f(int k){
+float convert_k_f(float k){
 	return k * (9.0 / 5.0) - 459.67;
 }
 
-float convert_f_k(int f){
+float convert_f_k(float f){
 	return (f + 459.67) * (5.0 / 9.0);
 }
 
-int is_temperature_correct(float t, char c)
-{
-	if (c == 'f')
-	{
-		if (t < -459.67)
-		{
-			printf("Temperature can't be below absolute zero!\n");
-			return 0;
-		}
+int is_temperature_correct(float t, char c){
+	if (c == 'f'){
+		if (t >= -459.67) return 1;
 	}
-	else if (c == 'k')
-	{
-		if (t < 0)
-		{
-			printf("Temperature can't be below absolute zero!\n");
-                        return 0;
-		}
+	else if (c == 'k'){
+		if (t >= 0) return 1;
 	}
-	else  if (c == 'c')
-	{
-		if (t < -273.15)
-		{
-                        printf("Temperature can't be below absolute zero!\n");
-                        return 0;
-                }
+	else if (c == 'c'){
+		if (t >= -273.15) return 1;
 	}
-	else if (t < 0) // incorrect input (check highest temp  value)
-	{
-		printf("Temperature can't be below absolute zero!\n");
-		return 0;
-	}
+	else return 0;
 
-	return 1;
+	printf("Temperature can't be below absolute zero!\n");
+	return 0;
 }
 
-int main()
-{
-	while (1)
-	{
-		char input_arr[100];
-		int input_temp = 0;
-		char input_scale = 'c';
+void convert_from_c(float t){
+	if (is_temperature_correct(t, 'c')){
+		printf("%.2f F\n", convert_c_f(t));
+        	printf("%.2f K\n\n", convert_c_k(t));
+	}
+}
 
-		// max input len == 100
-		fgets(input_arr, 100, stdin);
+void convert_from_f(float t){
+	if (is_temperature_correct(t, 'f')){
+		printf("%.2f C\n", convert_f_c(t));
+                printf("%.2f K\n\n", convert_f_k(t));
+	}
+}
 
-		// same as regex ^(-?\d+)
-		input_temp = atoi(input_arr);
+void convert_from_k(float t){
+	if (is_temperature_correct(t, 'k')){
+		printf("%.2f C\n", convert_k_c(t));
+                printf("%.2f F\n\n", convert_k_f(t));
+	}
+}
 
-		// last char of array excluding \0
-		input_scale = tolower(input_arr[strlen(input_arr) - 2]);
+int main(int argc, char **argv){
+	float input_temp;
+	char input_scale;
 
-		printf("\nOUTPUT:\n");
+	if (argc < 2 || argc > 3){
+		printf("Wrong options number\n");
+		return 1;
+	}
 
-		if (is_temperature_correct(input_temp, input_scale) != 1)
-                	continue;
+	input_temp = atoi(argv[1]); // 0 if int not found
 
-		if (input_scale == 'c')
-		{
-			printf("%.2f F\n", convert_c_f(input_temp));
-			printf("%.2f K\n", convert_c_k(input_temp));
+	if (argc == 2){
+		printf("C: %.0f\n", input_temp);
+		convert_from_c(input_temp);
+		printf("F: %.0f\n", input_temp);
+		convert_from_f(input_temp);
+		printf("K: %.0f\n", input_temp);
+		convert_from_k(input_temp);
+	}
+	else if (argc == 3){
+		input_scale = tolower(argv[2][0]);
+
+		if (input_scale == 'c'){
+			convert_from_c(input_temp);
 		}
-		else if (input_scale == 'f')
-		{
-			printf("%.2f C\n", convert_f_c(input_temp));
-			printf("%.2f K\n", convert_f_k(input_temp));
+		else if (input_scale == 'f'){
+			convert_from_f(input_temp);
 		}
-		else if (input_scale == 'k')
-		{
-			printf("%.2f C\n", convert_k_c(input_temp));
-			printf("%.2f F\n", convert_k_f(input_temp));
+		else if (input_scale == 'k'){
+			convert_from_k(input_temp);
 		}
-		else
-		{
-			// convert using C
-			printf("%d C:\n", input_temp);
-			printf("%.2f F\n", convert_c_f(input_temp));
-			printf("%.2f K\n", convert_c_k(input_temp));
-			printf("\n");
-
-			// convert using F
-                        printf("%d F:\n", input_temp);
-                        printf("%.2f C\n", convert_f_c(input_temp));
-                        printf("%.2f K\n", convert_f_k(input_temp));
-			printf("\n");
-
-			// convert using K
-                        printf("%d K:\n", input_temp);
-                        printf("%.2f C\n", convert_k_c(input_temp));
-                        printf("%.2f F\n", convert_k_f(input_temp));
-			printf("\n");
-		}
+		else printf("Unknown value (should be one of C, F, K)\n");
 	}
 
 	return 0;
