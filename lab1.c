@@ -27,14 +27,10 @@ float convert_f_k(float f){
 }
 
 int is_temperature_correct(float t, char c){
-	if (c == 'f'){
-		if (t >= -459.67) return 1;
-	}
-	else if (c == 'k'){
-		if (t >= 0) return 1;
-	}
-	else if (c == 'c'){
-		if (t >= -273.15) return 1;
+	switch(c){
+		case 'c': if (t >= -273.15) return 1;
+		case 'f': if (t >= -459.67) return 1;
+		case 'k': if (t >= 0) return 1;
 	}
 
 	printf("Temperature can't be below absolute zero!\n");
@@ -44,54 +40,63 @@ int is_temperature_correct(float t, char c){
 void convert_from_c(float t){
 	if (! is_temperature_correct(t, 'c')) return;
 
-	printf("%.2f F\n%.2f K\n\n", convert_c_f(t), convert_c_k(t));
+	printf("%.2f F\n%.2f K\n", convert_c_f(t), convert_c_k(t));
 }
 
 void convert_from_f(float t){
 	if (! is_temperature_correct(t, 'f')) return;
 
-	printf("%.2f C\n%.2f K\n\n", convert_f_c(t), convert_f_k(t));
+	printf("%.2f C\n%.2f K\n", convert_f_c(t), convert_f_k(t));
 }
 
 void convert_from_k(float t){
 	if (! is_temperature_correct(t, 'k')) return;
 
-	printf("%.2f C\n%.2f F\n\n", convert_k_c(t), convert_k_f(t));
+	printf("%.2f C\n%.2f F\n", convert_k_c(t), convert_k_f(t));
+}
+
+int wrong_scale_error(){
+	printf("Unknown scale! Should be one of C, F, K\n");
+	return 0;
 }
 
 int main(int argc, char **argv){
 	float input_temp;
-	char input_scale;
+	char* input_scale_char;
 
-	if (argc < 2 || argc > 3){
-		printf("Wrong options number\n");
-		return 1;
+	if (argc < 2 || argc >  3){
+		printf("Wrong arguments number\n");
+		return 0;
 	}
 
-	input_temp = atoi(argv[1]); // 0 if int not found
+	input_temp = atoi(argv[1]);  // 0 if int not found
 
 	if (argc == 2){
 		printf("C: %.0f\n", input_temp);
 		convert_from_c(input_temp);
-		printf("F: %.0f\n", input_temp);
+		printf("\nF: %.0f\n", input_temp);
 		convert_from_f(input_temp);
-		printf("K: %.0f\n", input_temp);
+		printf("\nK: %.0f\n", input_temp);
 		convert_from_k(input_temp);
 	}
 	else if (argc == 3){
-		input_scale = tolower(argv[2][0]);
+		input_scale_char = argv[2];
 
-		if (input_scale == 'c'){
-			convert_from_c(input_temp);
+		if (strlen(input_scale_char) != 1) return wrong_scale_error();
+
+		switch(tolower(input_scale_char[0])){
+			case 'c':
+				convert_from_c(input_temp);
+				break;
+			case 'f':
+				convert_from_f(input_temp);
+				break;
+			case 'k':
+				convert_from_k(input_temp);
+				break;
+
+			default: return wrong_scale_error();
 		}
-		else if (input_scale == 'f'){
-			convert_from_f(input_temp);
-		}
-		else if (input_scale == 'k'){
-			convert_from_k(input_temp);
-		}
-		else printf("Unknown value (should be one of C, F, K)\n");
 	}
-
 	return 0;
 }
