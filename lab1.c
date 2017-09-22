@@ -1,3 +1,5 @@
+#define USAGE "Usage: %s TEMP [SCALE]\n\nWhere SCALE can be\n  C\tConvert from Celsius\n  F\tConvert from Fahrenheit\n  K\tConvert from Kelvin\n\nLeave blank to use all scales\n"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -65,7 +67,7 @@ int main(int argc, char **argv){
 	char* input_scale_char;
 
 	if (argc < 2 || argc >  3){
-		printf("Wrong arguments number\n");
+		printf(USAGE, argv[0]);
 		return 0;
 	}
 
