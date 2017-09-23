@@ -71,14 +71,14 @@ int main(int argc, char **argv){
 		return 0;
 	}
 
-	input_temp = atoi(argv[1]);  // 0 if int not found
+	input_temp = atof(argv[1]);  // 0 if int not found
 
 	if (argc == 2){
-		printf("C: %.0f\n", input_temp);
+		printf("C: %.2f\n", input_temp);
 		convert_from_c(input_temp);
-		printf("\nF: %.0f\n", input_temp);
+		printf("\nF: %.2f\n", input_temp);
 		convert_from_f(input_temp);
-		printf("\nK: %.0f\n", input_temp);
+		printf("\nK: %.2f\n", input_temp);
 		convert_from_k(input_temp);
 	}
 	else if (argc == 3){
