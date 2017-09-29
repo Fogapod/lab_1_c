@@ -1,6 +1,6 @@
 /* 
  * Exit codes:
- *	 1 Unrecognized error
+ *   1 Unrecognized error
  *   2 Failed openning log file
  */
 
