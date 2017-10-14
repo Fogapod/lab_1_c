@@ -30,17 +30,17 @@ void daemonize(void)
 	umask(0);
 	setsid();
 	// chdir("/");
-	// close(STDIN_FILENO);
+	close(STDIN_FILENO);
 	// close(STDOUT_FILENO);
-	// close(STDERR_FILENO);
+	close(STDERR_FILENO);
 }
 
 void sig_handler(int sig)
 {
 	log_trace("Recieved signal: %s", strsignal(sig));
 
-    switch (sig)
-    {
+	switch (sig)
+	{
 		case SIGKILL:
 		case SIGTERM:
 			log_trace("Exiting");

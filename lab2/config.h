@@ -19,11 +19,11 @@
 #define CONFIG_DELIMITER         '='
 
 struct config_struct {
-    int  logging_level;
+	int  logging_level;
 	int  working_port;
 	char page_default[256];
-    char page_404[256];
-    char page_405[256];
+	char page_404[256];
+	char page_405[256];
 };
 
 struct config_struct config;

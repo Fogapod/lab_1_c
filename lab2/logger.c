@@ -48,14 +48,14 @@ void log_debug(char message[], ...)
 	if (logging_level < LOG_LEVEL_DEBUG) return;
 	// TODO: remove same code
 	va_list args;
-    char buf[MAX_LOG_MESSAGE_LEN];
+	char buf[MAX_LOG_MESSAGE_LEN];
 
-    va_start(args, message);
-    vsnprintf(buf, MAX_LOG_MESSAGE_LEN, message, args);
-    va_end(args);
+	va_start(args, message);
+	vsnprintf(buf, MAX_LOG_MESSAGE_LEN, message, args);
+	va_end(args);
 	// TODO: remove same code
 
-    write_log(buf, "[DEBUG]");
+	write_log(buf, "[DEBUG]");
 }
 
 void log_trace(char message[], ...)
@@ -63,11 +63,11 @@ void log_trace(char message[], ...)
 	if (logging_level < LOG_LEVEL_TRACE) return;
 	// TODO: remove same code
 	va_list args;
-    char buf[MAX_LOG_MESSAGE_LEN];
+	char buf[MAX_LOG_MESSAGE_LEN];
 
-    va_start(args, message);
-    vsnprintf(buf, MAX_LOG_MESSAGE_LEN, message, args);
-    va_end(args);
+	va_start(args, message);
+	vsnprintf(buf, MAX_LOG_MESSAGE_LEN, message, args);
+	va_end(args);
 	// TODO: remove same code
 
     write_log(buf, "[TRACE]");
@@ -86,7 +86,7 @@ void init_logger(int _logging_level)
 	if ((f = fopen(log_file, "w")) == NULL) exit(2);
 	fclose(f);
 
-    if (_logging_level < LOG_LEVEL_SILENT || _logging_level > LOG_LEVEL_TRACE)
+	if (_logging_level < LOG_LEVEL_SILENT || _logging_level > LOG_LEVEL_TRACE)
 		log_info("Wrong log level received (%d) Using default: %d", _logging_level, logging_level);
 	else
 	{
