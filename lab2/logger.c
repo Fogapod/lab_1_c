@@ -7,20 +7,19 @@
 
 // TODO: control log len
 
-int logging_level = LOG_LEVEL_INFO;
-char log_file[MAX_LOG_NAME_LEN];
+int  logging_level;
+char log_file[256];
 
 void write_log(char message[], char prefix[])
 {
-	char tm[9];
-	char buf[MAX_LOG_MESSAGE_LEN];
-	time_t now = time(NULL);
-	FILE *f = fopen(log_file, "a");
+	time_t  now = time(NULL);
+	char    tm[9];
+	char    buf[MAX_LOG_MESSAGE_LEN];
+	FILE   *f;
 
-	if (f == NULL) exit(2);
+	if ((f = fopen(log_file, "a")) == NULL) exit(2);
 
 	strftime(tm, sizeof(tm), "%H:%M:%S", localtime(&now));
-
 	sprintf(buf, "%s[%s]%s\n", prefix, tm,  message);
 
 	printf("\r%s", buf);
@@ -41,7 +40,7 @@ void log_info(char message[], ...)
 	va_end(args);
 	// TODO: remove same code
 
-	write_log(buf, "[ INFO]");
+	write_log(buf, "[INFO ]");
 }
 
 void log_debug(char message[], ...)
@@ -76,19 +75,15 @@ void log_trace(char message[], ...)
 
 void init_logger(int _logging_level)
 {
-	time_t now;
-	char   log_file_buf[MAX_LOG_NAME_LEN];
+	time_t  now = time(NULL);
+	FILE   *f;
 
-	strcat(log_file, DEFAULT_LOG_PATH);
-	strcat(log_file, DEFAULT_LOG_FILE);
+	strcpy(log_file, LOG_FILE_NAME);
 
-	strcpy(log_file_buf, log_file);
-	now = time(NULL);
-	strftime(log_file, sizeof(log_file), log_file_buf, localtime(&now));
+	strftime(log_file, sizeof(log_file), LOG_FILE_NAME, localtime(&now));
 
-	// TODO: limit number of logs
-	FILE* f = fopen(log_file, "w");
-	if (f == NULL) exit(2);
+	// TODO: limit number of log files
+	if ((f = fopen(log_file, "w")) == NULL) exit(2);
 	fclose(f);
 
     if (_logging_level < LOG_LEVEL_SILENT || _logging_level > LOG_LEVEL_TRACE)

@@ -4,7 +4,7 @@
   - [X] create logging function
 - [ ] create script for sending http requests
   - [ ] in C
-- [ ] create function for reading config
+- [X] create function for reading config
 - [ ] create server
   - [ ] process HEAD
   - [ ] process GET
