@@ -20,7 +20,7 @@ void read_config_line(char *line, FILE *f)
 	line[i] = '\0';
 }
 
-int get_config_intager(char *key, char *val, size_t val_len)
+int get_config_integer_value(char *key, char *val, size_t val_len)
 {
 	// no negative numbers allowed
 	int int_value = 0;
@@ -80,24 +80,24 @@ void parse_config_line(char *line, size_t line_len)
 	val[j] = '\0';
 
 	if (strcmp(key, OPTION_LOGGING_LEVEL) == 0)
-		config.logging_level = get_config_intager(key, val, strlen(val));
+		config.logging_level = get_config_integer_value(key, val, strlen(val));
 
 	else if (strcmp(key, OPTION_WORKING_PORT) == 0)
-		config.working_port = get_config_intager(key, val, strlen(val));
+		config.working_port = get_config_integer_value(key, val, strlen(val));
 
 	else if (strcmp(key, OPTION_PAGE_DEFAULT) == 0)
-        strcpy(config.page_default, val);
+		strcpy(config.page_default, val);
 
 	else if (strcmp(key, OPTION_PAGE_404) == 0)
-        strcpy(config.page_404, val);
+		strcpy(config.page_404, val);
 
 	else if (strcmp(key, OPTION_PAGE_405) == 0)
-        strcpy(config.page_405, val);
+		strcpy(config.page_405, val);
 	
 	else
 	{
 		printf("Error! Unknown config key: %s\n", line);
-        exit(4);
+		exit(4);
 	}
 }
 
