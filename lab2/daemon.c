@@ -32,7 +32,7 @@ void daemonize(void)
 	umask(0);
 	setsid();
 
-	// chdir("/");
+	chdir(ROOT_DIR);
 	close(STDIN_FILENO);
 	// close(STDOUT_FILENO);
 	close(STDERR_FILENO);

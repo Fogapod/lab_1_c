@@ -39,9 +39,9 @@ int listen_requests(int working_port, char *page_404, char *page_405)
 	log_debug("Starting listening requests on port %d", working_port);
 	while (1)
 	{
-		log_info("Working...");
+		log_info("Working ...");
 		sleep(10);
-		log_info("Looks like my work done...");
+		log_info("Looks like my work done ...");
 		break;
 	}
 	return 0;

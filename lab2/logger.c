@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "logger.h"
 
@@ -81,6 +82,7 @@ void init_logger(int _logging_level)
 	time_t  now = time(NULL);
 	FILE   *f;
 
+	getcwd(log_file, sizeof(log_file));
 	strcpy(log_file, LOG_FILE_NAME);
 
 	strftime(log_file, sizeof(log_file), LOG_FILE_NAME, localtime(&now));
