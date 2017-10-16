@@ -1,6 +1,6 @@
 /*
  * Arguments:
- *   config path (optional)
+ *   config file (optional)
  *
  * Exit codes:
  *   0 Success:
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
 	int exit_status;
 
-	read_config((argc == 2)? argv[1]: CONFIG_FILE);
+	read_config((argc == 2)? argv[1]: DEFAULT_CONFIG_FILE);
 
 	init_logger(config.logging_level);
 

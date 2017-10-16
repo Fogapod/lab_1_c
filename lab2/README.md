@@ -1,6 +1,6 @@
 ### TODO
 
-- [ ] create a standalone daemon process
+- [X] create a standalone daemon process
   - [X] create logging function
 - [ ] create script for sending http requests
   - [ ] in C

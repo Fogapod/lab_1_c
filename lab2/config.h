@@ -1,7 +1,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-#define CONFIG_FILE              "myhttpserver.conf"
+#define DEFAULT_CONFIG_FILE      "myhttpserver.conf"
 
 #define DEFAULT_LOGGING_LEVEL    LOG_LEVEL_INFO  // logger.h
 #define DEFAULT_WORKING_PORT     80

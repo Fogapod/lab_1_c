@@ -23,7 +23,10 @@ void write_log(char message[], char prefix[])
 	sprintf(buf, "%s[%s]%s\n", prefix, tm,  message);
 
 	printf("\r%s", buf);
+	fflush(stdout);
+
 	fprintf(f, "%s",  buf);
+	fflush(f);
 
 	fclose(f);
 }

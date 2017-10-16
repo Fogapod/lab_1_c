@@ -6,6 +6,7 @@
 #include "daemon.h"
 
 void sig_handler(int sig);
+void set_pid_file(pid_t pid);
 
 void daemonize(void)
 {
@@ -24,11 +25,13 @@ void daemonize(void)
     else if (pid > 0)
 	{
 		log_debug("Daemon process started (%d)", pid);
+		set_pid_file(pid);
 		exit(0);
 	}
 
 	umask(0);
 	setsid();
+
 	// chdir("/");
 	close(STDIN_FILENO);
 	// close(STDOUT_FILENO);
@@ -48,4 +51,21 @@ void sig_handler(int sig)
 		default:
 			log_debug("Unknown signal!");
     }
+}
+
+void set_pid_file(pid_t pid)
+{
+	FILE *f = fopen(PID_FILE, "w");
+
+	if (f)
+	{
+		log_trace("Writing to %s ...", PID_FILE);
+		fprintf(f, "%u", pid);
+		fclose(f);
+	}
+	else
+	{
+		log_info("Can't write to %s! Daemon not started", PID_FILE);
+        exit(3);
+	}
 }
