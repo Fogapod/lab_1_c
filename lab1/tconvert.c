@@ -1,4 +1,4 @@
-#define USAGE "Usage: %s TEMP [SCALE]\n\nWhere SCALE can be\n  C\tConvert from Celsius\n  F\tConvert from Fahrenheit\n  K\tConvert from Kelvin\n\nLeave blank to use all scales\n"
+#define USAGE "Usage: tconvert TEMP [SCALE]\n\nWhere SCALE can be\n  C\tConvert from Celsius\n  F\tConvert from Fahrenheit\n  K\tConvert from Kelvin\n\nLeave blank to use all scales\n"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,7 +32,7 @@ int is_temperature_correct(float t, char c){
 	switch(c){
 		case 'c': if (t >= -273.15) return 1;
 		case 'f': if (t >= -459.67) return 1;
-		case 'k': if (t >= 0) return 1;
+		case 'k': if (t >= 0)       return 1;
 	}
 
 	printf("Temperature can't be below absolute zero!\n");
@@ -59,22 +59,22 @@ void convert_from_k(float t){
 
 int wrong_scale_error(){
 	printf("Unknown scale! Should be one of C, F, K\n");
-	return 0;
+	return 1;
 }
 
-int main(int argc, char **argv){
+int main(int argc, char *argv[]){
 	float input_temp;
-	char* input_scale_char;
+	char *input_scale_char;
 
 	if (argc < 2 || argc >  3){
-		printf(USAGE, argv[0]);
+		printf(USAGE);
 		return 0;
 	}
 
-	input_temp = atof(argv[1]);  // 0 if int not found
+	input_temp = atof(argv[1]);  // 0.0 if number was not found
 
 	if (argc == 2){
-		printf("C: %.2f\n", input_temp);
+		printf(  "C: %.2f\n", input_temp);
 		convert_from_c(input_temp);
 		printf("\nF: %.2f\n", input_temp);
 		convert_from_f(input_temp);
