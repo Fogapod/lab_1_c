@@ -21,7 +21,7 @@ def get_T0_and_T():
 
 def calculate_D(T0, T):
     m = 50  # граммы
-    r = 20  # свнтиметры
+    r = 20  # сантиметры
 
     formula = (
         '4 * (PI ** 2) * ((2 * m * (r ** 2)) '
