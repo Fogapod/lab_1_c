@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-const char *bin_to_s(int);
+#define NUM_BITS 8
+
+char *bin_to_s(int);
 
 int main(void)
 {
@@ -11,10 +13,12 @@ int main(void)
 	printf("a: %s\n", bin_to_s(a));
 
 	int i;
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < NUM_BITS; i++)
 	{
-		if   (i < 4) b |= (a & (mask << i)) << (7 - i * 2);
-		else         b |= (a & (mask << i)) >> (i * 2 - 7);
+		if   (i < (NUM_BITS / 2))
+			b |= (a & (mask << i)) << ((NUM_BITS - 1) - i * 2);
+		else
+			b |= (a & (mask << i)) >> (i * 2 - (NUM_BITS - 1));
 	}
 
 	printf("b: %s\n", bin_to_s(b));
@@ -22,16 +26,15 @@ int main(void)
 	return 0;
 }
 
-const char *bin_to_s(int num)
+char *bin_to_s(int num)
 {
-	const  int  num_size = 8;
-	static char s[num_size + 1];
-	int         i;
+	static char s[NUM_BITS + 1];
+	int i;
 
-	for (i = 0; i < num_size; i++)
-		s[i] = ((num >> (num_size - i - 1) & 1) == 0)? '0': '1';
+	for (i = 0; i < NUM_BITS; i++)
+		s[i] = (num >> ((NUM_BITS - 1) - i) & 1)? '1': '0';
 
-	s[num_size] = '\0';
+	s[NUM_BITS] = '\0';
 
 	return s;
 }
