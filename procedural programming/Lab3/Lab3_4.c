@@ -63,43 +63,45 @@ int exec_test(int index_of_test)
 
 	switch (index_of_test)
 	{
-		case 0:
+		case 0:  // 1
 			result = task(3);
 			return strcmp(result.error_text, DM1) == 0;
-		case 1:
+		case 1:  // 2
 			result = task(0.5);
 			return strcmp(result.error_text, DM2) == 0;
-		case 2:
+		case 2:  // 3
 			expected = -2;
 			result   = task(0);
 			break;
-		case 3:
+		case 3:  // 4
 			expected = -2;
 			result   = task(0);
 			break;
-		case 4:
-			expected = -2;
+		case 4:  // 5
+			expected = -0.951174;
 			result   = task(1);
 			break;
-		case 5:
-			expected = -2;
+		case 5:  // 6
+			expected = -2.219138;
 			result   = task(-0.5);
 			break;
-		case 6:
+		case 6:  // 7
 			expected = task(-0).result;
 			result   = task(0);
 			break;
-		case 7:
+		case 7:  // 8
 			expected = task(2 * PI).result;
 			result   = task(PI * 2);
 			break;
-		case 8:
+		case 8:  // 9
+			expected = -70.419048;
+			result = task(8);
 			break;
-		case 9:
+		case 9:  // 10
 			expected = -43.903072;
 			result   = task(2 * PI);
 			break;
-		case 10:
+		case 10:  // 11
 			expected = -65.616223;
 			result   = task(E);
 			break;
