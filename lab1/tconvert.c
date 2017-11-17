@@ -30,9 +30,15 @@ float convert_f_k(float f){
 
 int is_temperature_correct(float t, char c){
 	switch(c){
-		case 'c': if (t >= -273.15) return 1;
-		case 'f': if (t >= -459.67) return 1;
-		case 'k': if (t >= 0)       return 1;
+		case 'c':
+			if (t >= -273.15) return 1;
+			break;
+		case 'f':
+			if (t >= -459.67) return 1;
+			break;
+		case 'k':
+			if (t >= 0) return 1;
+			break;
 	}
 
 	printf("Temperature can't be below absolute zero!\n");
