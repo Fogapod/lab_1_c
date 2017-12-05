@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void execute(int *commands, struct node *n, int current_index)
+void execute(int commands[], struct node *n, int current_index)
 {
 	int i, num_loops;
 
@@ -103,7 +103,7 @@ void execute(int *commands, struct node *n, int current_index)
             case COMMAND_USER_INPUT:
                 write_user_input_to_node(n);
                 break;
-        }
+		}
 	}
 }
 
