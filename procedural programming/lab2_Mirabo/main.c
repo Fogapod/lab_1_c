@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 #define IS_NUMBER  0
-#define STACK_SIZE 2
+#define STACK_SIZE 256
 
 int stack_index = 0;
 double stack[STACK_SIZE];
