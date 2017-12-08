@@ -16,7 +16,7 @@ struct node {
 	struct node *ptr_l;
 	struct node *ptr_r;
 
-	char value;
+	unsigned char value;
 };
 
 struct node *create_node(void);
@@ -109,7 +109,7 @@ void execute(int commands[], struct node *n, int current_index)
 
 struct node *create_node(void)
 {
-	static struct node *n;
+	struct node *n;
 	n = malloc(sizeof(struct node));
 	n->value = 0;
 
