@@ -57,7 +57,7 @@ void execute(int commands[], struct node *n, int current_index)
 
 	for (i = current_index; commands[i] != -1; i++)
 	{
-		// printf("Index: %d Command: %d Value: %d\n", i, commands[i], n->value);
+		/* printf("Index: %d Command: %d Value: %d\n", i, commands[i], n->value); */
         switch (commands[i]){
             case COMMAND_PRINT:
                 print_node_value(n);
@@ -203,7 +203,7 @@ int *get_commands_from_file(char *filename)
 	}
 
 	int c;
-	char line[256];  // line len is guaranteed to be <= 255 + \0
+	char line[256];  /* line len is guaranteed to be <= 255 + \0 */
 
 	for (i = j = 0; (c = getc(f)) != EOF; i++, j = 0)
 	{
@@ -214,7 +214,7 @@ int *get_commands_from_file(char *filename)
 			c = getc(f);
 		}
 
-		if (c == '*')  // pass commented lineI
+		if (c == '*')  /* pass commented lineI */
 		{
 			while (c  != '\n' && c != EOF)
 			{
@@ -271,7 +271,7 @@ int *get_commands_from_file(char *filename)
 		}
 	}
 
-	commands[i] = -1;  // indicate end of array
+	commands[i] = -1;  /* indicate end of array */
 
 	return commands;
 }
