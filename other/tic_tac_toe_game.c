@@ -66,7 +66,7 @@ void print_grid(char *grid_v)
 
 void do_step(char player, char *grid_v, int ai)
 {
-	char position;
+	unsigned char position;
 
 	do
 	{
@@ -75,7 +75,7 @@ void do_step(char player, char *grid_v, int ai)
 
 		if (ai)
 		{
-			// TODO: something better than random
+			/* TODO: something better than random */
 			while (grid_v[(position = rand() % 9)] == P1_SHAPE || grid_v[position] == P2_SHAPE)
 				;
 			printf("%d [AI]\n", position + 1);
@@ -93,7 +93,7 @@ void do_step(char player, char *grid_v, int ai)
 
 int  check_win_condition(char *grid_v)
 {
-	// checking diagonals
+	/* checking diagonals */
 	if (grid_v[0] == grid_v[4] && grid_v[0] == grid_v[8]) return 1;
 	if (grid_v[2] == grid_v[4] && grid_v[2] == grid_v[6]) return 1;
 
@@ -101,9 +101,9 @@ int  check_win_condition(char *grid_v)
 
 	for (i = 0; i < 3; i++)
 	{
-		// checking cols
+		/* checking cols */
 		if (grid_v[i] == grid_v[3 + i] && grid_v[i] == grid_v[6 + i]) return 1;
-		// checking rows
+		/* checking rows */
 		if (grid_v[i * 3] == grid_v[1 + i * 3] && grid_v[i * 3] == grid_v[2 + i * 3]) return 1;
 	}
 
