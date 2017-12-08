@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define COMMAND_PRINT       0
+#define COMMAND_PRINT		0
 #define COMMAND_PRINT_ASCII 1
-#define COMMAND_MOVE_LEFT   2
-#define COMMAND_MOVE_RIGHT  3
-#define COMMAND_INCREMENT   4
-#define COMMAND_DECREMENT   5
-#define COMMAND_LOOP_START  6
-#define COMMAND_LOOP_END    7
-#define COMMAND_USER_INPUT  8
+#define COMMAND_MOVE_LEFT	2
+#define COMMAND_MOVE_RIGHT	3
+#define COMMAND_INCREMENT	4
+#define COMMAND_DECREMENT	5
+#define COMMAND_LOOP_START	6
+#define COMMAND_LOOP_END	7
+#define COMMAND_USER_INPUT	8
 
 struct node {
 	struct node *ptr_l;
@@ -58,32 +58,32 @@ void execute(int commands[], struct node *n, int current_index)
 	for (i = current_index; commands[i] != -1; i++)
 	{
 		/* printf("Index: %d Command: %d Value: %d\n", i, commands[i], n->value); */
-        switch (commands[i]){
-            case COMMAND_PRINT:
-                print_node_value(n);
-                break;
+		switch (commands[i]){
+			case COMMAND_PRINT:
+				print_node_value(n);
+				break;
 
-            case COMMAND_PRINT_ASCII:
-                print_node_value_ascii(n);
-                break;
+			case COMMAND_PRINT_ASCII:
+				print_node_value_ascii(n);
+				break;
 
-            case COMMAND_MOVE_LEFT:
-                n = move_l(n);
-                break;
+			case COMMAND_MOVE_LEFT:
+				n = move_l(n);
+				break;
 
-            case COMMAND_MOVE_RIGHT:
-                n = move_r(n);
-                break;
+			case COMMAND_MOVE_RIGHT:
+				n = move_r(n);
+				break;
 
-            case COMMAND_INCREMENT:
-                node_inc(n);
-                break;
+			case COMMAND_INCREMENT:
+				node_inc(n);
+				break;
 
-            case COMMAND_DECREMENT:
-                node_dec(n);
-                break;
+			case COMMAND_DECREMENT:
+				node_dec(n);
+				break;
 
-            case COMMAND_LOOP_START:
+			case COMMAND_LOOP_START:
 				while (n->value != 0) execute(commands, n, i + 1);
 
 				i++;
@@ -91,18 +91,18 @@ void execute(int commands[], struct node *n, int current_index)
 				{
 					if (commands[i] == -1) return;
 					else if (commands[i] == COMMAND_LOOP_START) num_loops++;
-					else if (commands[i] == COMMAND_LOOP_END)   num_loops--;
+					else if (commands[i] == COMMAND_LOOP_END)	num_loops--;
 				}
 				i--;
 
-                break;
+				break;
 
-            case COMMAND_LOOP_END:
-                return;
+			case COMMAND_LOOP_END:
+				return;
 
-            case COMMAND_USER_INPUT:
-                write_user_input_to_node(n);
-                break;
+			case COMMAND_USER_INPUT:
+				write_user_input_to_node(n);
+				break;
 		}
 	}
 }
@@ -134,34 +134,34 @@ struct node *move_r(struct node *n)
 		n->ptr_r->ptr_l = n;
 	}
 
-    return n->ptr_r;
+	return n->ptr_r;
 }
 
 void node_inc(struct node *n)
 {
-    if (n->value == 255)
-    {
-        printf("Warning: reached max node value. Setting from 255 to 0\n");
-        n->value = 0;
-    }
-    else
-        n->value++;
+	if (n->value == 255)
+	{
+		printf("Warning: reached max node value. Setting from 255 to 0\n");
+		n->value = 0;
+	}
+	else
+		n->value++;
 }
 
 void node_dec(struct node *n)
 {
-    if (n->value == 0)
-    {
-        printf("Warning: reached min node value. Setting from 0 to 255\n");
-        n->value = 255;
-    }
-    else
-        n->value--;
+	if (n->value == 0)
+	{
+		printf("Warning: reached min node value. Setting from 0 to 255\n");
+		n->value = 255;
+	}
+	else
+		n->value--;
 }
 
 void print_node_value(struct node *n)
 {
-    printf("%d\n", n->value);
+	printf("%d\n", n->value);
 }
 
 void print_node_value_ascii(struct node *n)

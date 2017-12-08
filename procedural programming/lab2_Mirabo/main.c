@@ -17,117 +17,117 @@ void clear_input(void);
 
 int main(void)
 {
-    int input_type;
-    char input[256];
+	int input_type;
+	char input[256];
 	double op2;
 
-    while ((input_type = get_input(input)) != EOF)
+	while ((input_type = get_input(input)) != EOF)
 	{
-        switch (input_type) {
-            case IS_NUMBER:
+		switch (input_type) {
+			case IS_NUMBER:
 				put(atof(input));
 				break;
 
-            case '+':
+			case '+':
 				put(pop() + pop());
 				break;
 
-            case '*':
+			case '*':
 				put(pop() * pop());
 				break;
 
-            case '-':
+			case '-':
 				op2 = pop();
 				put(pop() - op2);
 				break;
 
-            case '/':
+			case '/':
 				op2 = pop();
 				if (op2 != 0.0)
 					put(pop() / op2);
 				else
 				{
-					printf("Error: cant divide by 0!\n");
+					printf("Error: can't divide by 0!\n");
 					clear_input();
 				}
 				break;
 
-            case '\n':
+			case '\n':
 				printf("Result: %g\n", pop());
 				break;
 
-            default:
+			default:
 				printf("Error: unknown input (%s)\n", input);
 				clear_input();
-        }
-    }
+		}
+	}
 
 	return 0;
 }
 
 void put(double val)
 {
-    if(stack_index > STACK_SIZE)
+	if (stack_index > STACK_SIZE)
 	{
 		printf("Error: stack full!\n");
 		exit(1);
 	}
 
-    stack[stack_index++] = val;
+	stack[stack_index++] = val;
 }
 
 double pop(void)
 {
-    if(stack_index > 0)
-        return stack[--stack_index];
+	if (stack_index > 0)
+		return stack[--stack_index];
 
-    printf("Error: trying to pop from empty stack!\n");
-    exit(1);
+	printf("Error: trying to pop from empty stack!\n");
+	exit(1);
 }
 
 int get_input(char s[])
 {
-    int c, i = 0;
+	int c, i = 0;
  
-    while ((s[0] = c = getchar()) == ' ' || c == '\t')
-        ;
-    s[1] = '\0';
+	while ((s[0] = c = getchar()) == ' ' || c == '\t')
+		;
+	s[1] = '\0';
  
-    if (!isdigit(c) && c != '.' && c != '-')
+	if (!isdigit(c) && c != '.' && c != '-')
 	{
 		return c;
 	}
 
-    if (c == '-')
+	if (c == '-')
 	{
-        if (isdigit(c = getchar()) || c == '.')
+		if (isdigit(c = getchar()) || c == '.')
 		{
-            s[++i] = c;
+			s[++i] = c;
 		}
-        else
-        {
-            if (c != EOF)
-                ungetc(c, stdin);
-            return '-';
-        }
+		else
+		{
+			if (c != EOF)
+				ungetc(c, stdin);
+			return '-';
+		}
 	}
  
-    if (isdigit(c))
-        while (isdigit(s[++i] = c = getchar()))
-            ;
+	if (isdigit(c))
+		while (isdigit(s[++i] = c = getchar()))
+			;
  
-    if (c == '.')
+	if (c == '.')
 	{
-        while (isdigit(s[++i] = c = getchar()))
-            ;
+		while (isdigit(s[++i] = c = getchar()))
+			;
 	}
  
-    s[i] = '\0';
+	s[i] = '\0';
 
-    if (c != EOF)
-        ungetc(c, stdin);
+	if (c != EOF)
+		ungetc(c, stdin);
 
-    return IS_NUMBER;
+	return IS_NUMBER;
 }
 
 void clear_input(void)
