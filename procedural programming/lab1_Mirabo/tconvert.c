@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 float convert_c_f(float c){
 	return c * (9.0 / 5.0) + 32;
@@ -77,7 +78,7 @@ int main(int argc, char *argv[]){
 		return 0;
 	}
 
-	input_temp = atof(argv[1]);  // 0.0 if number was not found
+	input_temp = atof(argv[1]);  /* 0.0 if number was not found */
 
 	if (argc == 2){
 		printf(  "C: %.2f\n", input_temp);
