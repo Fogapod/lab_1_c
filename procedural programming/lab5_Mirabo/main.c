@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 		command_list = get_commands_from_file(argv[1]);
 	else
 	{
-		printf("Error: filename with commands not provided!");
+		printf("Error: filename with commands not provided!\n");
 		exit(1);
 	}
 
@@ -109,8 +109,7 @@ void execute(int commands[], struct node *n, int current_index)
 
 struct node *create_node(void)
 {
-	struct node *n;
-	n = malloc(sizeof(struct node));
+	struct node *n = malloc(sizeof(struct node));
 	n->value = 0;
 
 	return n;
@@ -190,9 +189,7 @@ int *get_commands_from_file(char *filename)
 
 	int i, j;
 	size_t commands_capacity = 16;
-	static int *commands;
-
-	commands = malloc(commands_capacity * sizeof(int));
+	int *commands = malloc(commands_capacity * sizeof(int));
 
 	FILE *f = fopen(filename, "r");
 
