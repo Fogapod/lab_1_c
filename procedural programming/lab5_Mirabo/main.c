@@ -187,7 +187,7 @@ int *get_commands_from_file(char *filename)
 	 * int array with command indexes
 	 */
 
-	int i, j;
+	unsigned int i, j;
 	size_t commands_capacity = 16;
 	int *commands = malloc(commands_capacity * sizeof(int));
 
