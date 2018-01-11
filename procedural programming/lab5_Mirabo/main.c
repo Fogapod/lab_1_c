@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define COMMAND_PRINT		0
+#define COMMAND_PRINT       0
 #define COMMAND_PRINT_ASCII 1
-#define COMMAND_MOVE_LEFT	2
-#define COMMAND_MOVE_RIGHT	3
-#define COMMAND_INCREMENT	4
-#define COMMAND_DECREMENT	5
-#define COMMAND_LOOP_START	6
-#define COMMAND_LOOP_END	7
-#define COMMAND_USER_INPUT	8
+#define COMMAND_MOVE_LEFT   2
+#define COMMAND_MOVE_RIGHT  3
+#define COMMAND_INCREMENT   4
+#define COMMAND_DECREMENT   5
+#define COMMAND_LOOP_START  6
+#define COMMAND_LOOP_END    7
+#define COMMAND_USER_INPUT  8
 
 struct node {
 	struct node *ptr_l;
