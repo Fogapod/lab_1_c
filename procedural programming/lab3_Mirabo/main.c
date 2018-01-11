@@ -9,8 +9,8 @@ int main(void)
 	struct tm tm;
 	time_t t;
 	char str[256];
-	int month_num;
-	char *months_names[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+	int day_num;
+	char *week_day_names[] = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
 	printf("Please, enter date in format dd mm yyyy: ");
 
@@ -32,10 +32,10 @@ int main(void)
 	{
 		t = mktime(&tm);
 
-		month_num = (localtime(&t)->tm_wday);
+		day_num = (localtime(&t)->tm_wday);
 
-		if (month_num >= 0 && month_num < 12)
-			printf("%s\n", months_names[month_num]);
+		if (day_num >= 0 && day_num < 12)
+			printf("%s\n", week_day_names[day_num]);
 		else
 			printf("Error\n");
 	}
