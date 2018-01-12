@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	int   num;
 	char  s[256];
 	float fl;
+	long  f_size = 0;
 
 	if (argc > 1)
 	{
@@ -39,8 +40,14 @@ int main(int argc, char *argv[])
 		fread(s, sizeof(char), 256, f);
 		fread(&fl, sizeof(float), 1, f);
 
+		f_size += sizeof(int) + sizeof(char) * 256 + sizeof(float);
+
+
 		printf("Chunk %d:\n\t%d\n\t%s\n\t%f\n", i + 1, num, s, fl);
+
 	}
+
+	printf("File size: %ld bytes\n", f_size);
 
 	return 0;
 }
