@@ -1,10 +1,15 @@
 #include <iostream>
+#include <fstream>
 #include "Complex.h"
+
+#define FILENAME "complex.txt"
+
 
 using std::cout;
 using std::endl;
 using std::cin;
 
+void output_max_complex_from_file();
 double get_double();
 int get_int();
 Complex get_complex();
@@ -18,15 +23,16 @@ int main() {
 
     while (true) {
 		cout << "Select action by entering numner:" << endl;
-		cout << "\t1. show number" << endl;
-		cout << "\t2. enter number" << endl;
-		cout << "\t3. add 2 complex numbers" << endl;
-		cout << "\t4. substract complex numbers" << endl;
-		cout << "\t5. multiply complex number by double" << endl;
-		cout << "\t6. multiply 2 complex numbers" << endl;
-		cout << "\t7. divide complex number by double" << endl;
-        cout << "\t8. divide complex number by complex number" << endl;
-		cout << "\t9. get module of complex number" << endl;
+		cout << "\t1.  show number" << endl;
+		cout << "\t2.  enter number" << endl;
+		cout << "\t3.  add 2 complex numbers" << endl;
+		cout << "\t4.  substract complex numbers" << endl;
+		cout << "\t5.  multiply complex number by double" << endl;
+		cout << "\t6.  multiply 2 complex numbers" << endl;
+		cout << "\t7.  divide complex number by double" << endl;
+        cout << "\t8.  divide complex number by complex number" << endl;
+		cout << "\t9.  get module of complex number" << endl;
+		cout << "\t10. read complex numbers from file and find one with biggest module" << endl;
 
 		switch (get_int()) {
 			case 1:
@@ -119,12 +125,50 @@ int main() {
 				}
 				break;
 
+			case 10: { 
+				double real, imag;
+				Complex max, temp;
+				std::fstream infile(FILENAME);
+				
+				if (infile >> real >> imag) {
+					max = create_complex(real, imag);
+				}
+				
+				while (infile >> real >> imag) {
+					temp = create_complex(real, imag);
+					if (module_complex(temp) > module_complex(max))
+						max = temp;
+				}
+				
+				cout << "Complex with max module: " << complex_to_string(max) << endl;
+				break;
+
+			}
+
 			default:
 				cout << "Invalid input" << endl;
 		}
 	}
 	
 	return 0;
+}
+
+void output_max_complex_from_file() {
+	double real, imag;
+	Complex max, temp;
+    std::fstream infile(FILENAME);
+
+    if (infile >> real >> imag) {
+		max = create_complex(real, imag);
+	}
+	while (infile >> real >> imag)
+	{
+		temp = create_complex(real, imag);
+		if (module_complex(temp) > module_complex(max)) {
+			max = temp;
+		}
+	}
+	cout << "Complex with max module: " << complex_to_string(max) << endl;
 }
 
 int get_int() {
