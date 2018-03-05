@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "Complex.h"
 
 #define FILENAME "complex.txt"
@@ -9,7 +10,6 @@ using std::cout;
 using std::endl;
 using std::cin;
 
-void output_max_complex_from_file();
 double get_double();
 int get_int();
 Complex get_complex();
@@ -127,19 +127,31 @@ int main() {
 
 			case 10: { 
 				double real, imag;
+				std::vector<Complex> complex_arr;
+
 				Complex max, temp;
 				std::fstream infile(FILENAME);
-				
+
 				if (infile >> real >> imag) {
 					max = create_complex(real, imag);
+					complex_arr.push_back(max);
 				}
-				
-				while (infile >> real >> imag) {
+				else {
+					cout << "Empty or invalid file" << endl;
+					break;
+				}
+
+				int number_count = 1;
+				for ( ; infile >> real >> imag; number_count++) {
 					temp = create_complex(real, imag);
-					if (module_complex(temp) > module_complex(max))
-						max = temp;
+					complex_arr.push_back(temp);
 				}
-				
+
+				for (int i = 0; i < number_count; i++) {
+					if (module_complex(complex_arr.at(i)) > module_complex(max))
+                        max = complex_arr.at(i);
+				}
+
 				cout << "Complex with max module: " << complex_to_string(max) << endl;
 				break;
 
@@ -151,24 +163,6 @@ int main() {
 	}
 	
 	return 0;
-}
-
-void output_max_complex_from_file() {
-	double real, imag;
-	Complex max, temp;
-    std::fstream infile(FILENAME);
-
-    if (infile >> real >> imag) {
-		max = create_complex(real, imag);
-	}
-	while (infile >> real >> imag)
-	{
-		temp = create_complex(real, imag);
-		if (module_complex(temp) > module_complex(max)) {
-			max = temp;
-		}
-	}
-	cout << "Complex with max module: " << complex_to_string(max) << endl;
 }
 
 int get_int() {
