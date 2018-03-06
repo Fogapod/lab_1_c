@@ -18,4 +18,5 @@ main.o: main.cpp
 	g++ -Wall -c -o main.o main.cpp
 
 build: main.o
+	mkdir -p bin
 	g++ -Wall -o bin/f_pointers main.o
