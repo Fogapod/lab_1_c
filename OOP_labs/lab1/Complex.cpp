@@ -44,28 +44,28 @@ Complex mult_complex(Complex c1, Complex c2){
 }
 
 Complex mult_complex_by_number(Complex c1, double n){
-    Complex c;
+	Complex c;
 	c.real = c1.real * n;
 	c.imag = c1.imag * n;
 
-    return c;
+	return c;
 }
 
 Complex divide_complex_by_number(Complex c1, double n){
-    Complex c;
+	Complex c;
 	c.real = c1.real / n;
 	c.imag = c1.imag / n;
 
-    return c;
+	return c;
 }
 
 Complex divide_complex(Complex c1, Complex c2){
-    Complex c3;
+	Complex c3;
 
 	double num = c2.real * c2.real + c2.imag * c2.imag;
 
-    c3.real = c1.real * c2.real + c1.imag * c2.imag;
-    c3.imag = c1.imag * c2.real - c2.imag * c1.real;
+	c3.real = c1.real * c2.real + c1.imag * c2.imag;
+	c3.imag = c1.imag * c2.real - c2.imag * c1.real;
 
 	
     return divide_complex_by_number(c3, num);
