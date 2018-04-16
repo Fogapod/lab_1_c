@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 #define ARR_SIZE 5
 
