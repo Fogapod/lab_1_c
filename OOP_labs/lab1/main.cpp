@@ -154,6 +154,7 @@ int main() {
 				}
 
 				cout << "Complex with max module: " << complex_to_string(max) << endl;
+				cout << "Numbers read: " << number_count << std::endl;
 				break;
 
 			}
