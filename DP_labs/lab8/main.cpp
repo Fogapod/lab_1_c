@@ -11,8 +11,8 @@ using std::string;
 template <class T>
 T** init_matrix(T, int n, int m) {
 	T **matrix = new T*[n];
-    	for(int i = 0; i < n; ++i)
-        	matrix[i] = new T[m];
+		for(int i = 0; i < n; ++i)
+			matrix[i] = new T[m];
 
 	return matrix;
 }
@@ -65,10 +65,10 @@ template <class T>
 void set_nth_item(T item, T **matrix, int n, int size_x, int size_y) {
 	for (int j = size_y; j > 0; j--) {
 		for (int i = 0; i < size_x; i++) {
-            if (n-- == 0)
-                matrix[i][j - 1] = item;
-        }
-    }
+			if (n-- == 0)
+				matrix[i][j - 1] = item;
+		}
+	}
 }
 
 std::tuple<int, bool> get_user_input_int() {
@@ -77,11 +77,11 @@ std::tuple<int, bool> get_user_input_int() {
 
 	if (cin.eof()) {
 		exit(0);
-    }
+	}
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return std::make_tuple(-1, false);
 	}
 
@@ -89,20 +89,20 @@ std::tuple<int, bool> get_user_input_int() {
 }
 
 std::tuple<string, bool> get_user_input_string() {
-    string result;
-    cin >> result;
+	string result;
+	cin >> result;
 
 	if (cin.eof()) {
-        exit(0);
-    }
+		exit(0);
+	}
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        return std::make_tuple("", false);
-    }
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return std::make_tuple("", false);
+	}
 
-    return std::make_tuple(result, true);
+	return std::make_tuple(result, true);
 }
 
 int main() {
@@ -119,23 +119,23 @@ int main() {
 			break;
 	}
 	while (true) {
-        cout << "Please, enter number of colums (<=50)\n> ";
+		cout << "Please, enter number of colums (<=50)\n> ";
 		std::tie(colCount, ok) = get_user_input_int();
-        if (!ok)
-            continue;
+		if (!ok)
+			continue;
 
-        if (colCount > 0 && colCount <= 50)
-            break;
-    }
+		if (colCount > 0 && colCount <= 50)
+			break;
+	}
 	while (true) {
-        cout << "Please, enter number of rows (<=100)\n> ";
+		cout << "Please, enter number of rows (<=100)\n> ";
 		std::tie(rowCount, ok) = get_user_input_int();
-        if (!ok)
-            continue;
+		if (!ok)
+			continue;
 
-        if (rowCount > 0 && rowCount <= 100)
-            break;
-    }
+		if (rowCount > 0 && rowCount <= 100)
+			break;
+	}
 
 	int sortedEndIndex = 0;
 	int maxN = rowCount * colCount;
@@ -159,7 +159,7 @@ int main() {
 				continue;
 			}
 			if (get_nth_item(m, i + 1, rowCount, colCount) != valueToSort)
-                continue;
+				continue;
 
 			// swap
 			int temp;
@@ -181,23 +181,23 @@ int main() {
 			std::tie(valueToSort, ok) = get_user_input_string();
 			if (ok)
 				break;
-        }
+		}
 		for (int i = 0; i < maxN - 1; i++) {
 			if (get_nth_item(m, i, rowCount, colCount) == valueToSort) {
-                sortedEndIndex++;
+				sortedEndIndex++;
 				continue;
-            }
-            if (get_nth_item(m, i + 1, rowCount, colCount) != valueToSort)
+			}
+			if (get_nth_item(m, i + 1, rowCount, colCount) != valueToSort)
 				continue;
-            // swap
-            string temp;
-            temp = get_nth_item(m, i + 1, rowCount, colCount);
-            set_nth_item(get_nth_item(m, sortedEndIndex, rowCount, colCount), m, i + 1, rowCount, colCount);
-            set_nth_item(temp, m, sortedEndIndex, rowCount, colCount);
+			// swap
+			string temp;
+			temp = get_nth_item(m, i + 1, rowCount, colCount);
+			set_nth_item(get_nth_item(m, sortedEndIndex, rowCount, colCount), m, i + 1, rowCount, colCount);
+			set_nth_item(temp, m, sortedEndIndex, rowCount, colCount);
 
-            sortedEndIndex++;
-        }
-        print_matrix(m, rowCount, colCount);
+			sortedEndIndex++;
+		}
+		print_matrix(m, rowCount, colCount);
 	}
 
 	return 0;
