@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"strings"
 	"regexp"
+	"strings"
 )
 
 func main() {
@@ -13,6 +13,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	wordFreq := map[string]int{}
 	for _, word := range wordRegex.FindAllStringSubmatch(string(text), -1) {
 		word := strings.ToLower(word[0])
