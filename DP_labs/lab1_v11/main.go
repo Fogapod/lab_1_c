@@ -14,7 +14,6 @@ import "fmt"
 
 const edgeLen = 4
 
-
 func main() {
 	var x, y float32
 
@@ -24,7 +23,7 @@ func main() {
 			fmt.Println("Invalid input")
 		}
 
-		if x <= y - edgeLen || x >= y + edgeLen || x <= -y -edgeLen || x >= -y + edgeLen{
+		if x <= y-edgeLen || x >= y+edgeLen || x <= -y-edgeLen || x >= -y+edgeLen {
 			fmt.Println("Inside zone")
 		} else {
 			fmt.Println("Outside zone")
