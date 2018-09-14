@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	emailRegex := regexp.MustCompile(`[\w.\-]+@([\w\d]+\.)+[\w\d]{2,}`)
+	emailRegex := regexp.MustCompile(`[\w.\-]+@([a-zA-Z\d]+\.)+[a-zA-Z\d]{2,}`)
 
 	reader := bufio.NewReader(os.Stdin)
 
