@@ -77,10 +77,10 @@ std::tuple<int, bool> get_user_input_int() {
 
 void fill_matrix(string **matrix, int n, int m) {
 	string value;
-    bool ok;
+	bool ok;
 
     for(int i = 0; i < n; i++) {
-        for(int j = 0; j < m; j++) {
+		for(int j = 0; j < m; j++) {
 			while (true) {
 				cout << "Enter value of matrix[" << i << "][" << j << "] (String)\n> ";
 				std::tie(value, ok) = get_user_input_string();
