@@ -1,46 +1,89 @@
-#include <algorithm>
 #include <iostream>
-#include <tuple>
-#include <typeinfo>
+#include <string>
 #include <limits>
+#include <tuple>
 
-using std::cout;
-using std::cin;
-using std::endl;
 using std::string;
+using std::cin;
+using std::cout;
+using std::endl;
 
-template <class T>
-T** init_matrix(T, int n, int m) {
-	T **matrix = new T*[n];
-		for(int i = 0; i < n; ++i)
-			matrix[i] = new T[m];
+string** init_matrix(string, int n, int m) {
+    string **matrix = new string*[n];
+        for(int i = 0; i < n; ++i)
+            matrix[i] = new string[m];
 
-	return matrix;
+    return matrix;
 }
 
-template <class T>
-void print_matrix(T **matrix, int n, int m) {
-	for (int i = 0; i < n; i++) {
-		cout << "[";
-		for (int j = 0; j < m; j++) {
-			cout << matrix[i][j];
-			if (j != m - 1)
-				cout << " ";
-		}
-		cout << "]\n";
-	}
+float** init_matrix(float, int n, int m) {
+    float **matrix = new float*[n];
+        for(int i = 0; i < n; ++i)
+            matrix[i] = new float[m];
+
+    return matrix;
 }
 
-template <class T>
-void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
-	T value;
-	bool ok;
+std::tuple<string, bool> get_user_input_string() {
+	string result;
+	cin >> result;
 
-	for(int i = 0; i < n; i++) {
-		for(int j = 0; j < m; j++) {
+    if (cin.eof()) {
+        exit(0);
+    }
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return std::make_tuple(result, false);
+    }
+
+    return std::make_tuple(result, true);
+}
+
+std::tuple<float, bool> get_user_input_float() {
+    float result;
+    cin >> result;
+
+    if (cin.eof()) {
+        exit(0);
+    }
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return std::make_tuple(result, false);
+    }
+
+    return std::make_tuple(result, true);
+}
+
+std::tuple<int, bool> get_user_input_int() {
+    int result;
+    cin >> result;
+
+    if (cin.eof()) {
+        exit(0);
+    }
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return std::make_tuple(result, false);
+    }
+
+    return std::make_tuple(result, true);
+}
+
+void fill_matrix(string **matrix, int n, int m) {
+	string value;
+    bool ok;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
 			while (true) {
-				cout << "Enter value of matrix[" << i << "][" << j << "] (" << (typeid(T) == typeid(int)? "Int": "String") << ")\n> ";
-				std::tie(value, ok) = input_fn();
+				cout << "Enter value of matrix[" << i << "][" << j << "] (String)\n> ";
+				std::tie(value, ok) = get_user_input_string();
 				if (!ok)
 					continue;
 
@@ -51,113 +94,141 @@ void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
 	}
 }
 
-template <class T>
-void transpose_matrix(T **source, T **dest, int n, int m) {
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++) {
-			dest[j][i] = source[i][j];
+void fill_matrix(float **matrix, int n, int m) {
+    float value;
+	bool ok;
+
+	for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            while (true) {
+                cout << "Enter value of matrix[" << i << "][" << j << "] (Float)\n> ";
+                std::tie(value, ok) = get_user_input_float();
+                if (!ok)
+                    continue;
+	
+				matrix[i][j] = value;
+				break;
+			}
 		}
+	}
 }
 
-std::tuple<int, bool> get_user_input_int() {
-	int result;
-	cin >> result;
-
-	if (cin.eof()) {
-		exit(0);
-	}
-
-	if (cin.fail()) {
-		cin.clear();
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		return std::make_tuple(-1, false);
-	}
-
-	return std::make_tuple(result, true);
+void print_matrix(string **matrix, int n, int m) {
+	for (int i = 0; i < n; i++) {
+        cout << "[";
+        for (int j = 0; j < m; j++) {
+            cout << matrix[i][j];
+            if (j != m - 1)
+                cout << " ";
+        }
+        cout << "]\n";
+    }
 }
 
-template <class T>
-void sort_rows(T **matrix, int n, int m) {
+void print_matrix(float **matrix, int n, int m) {
+	for (int i = 0; i < n; i++) {
+        cout << "[";
+        for (int j = 0; j < m; j++) {
+            cout << matrix[i][j];
+            if (j != m - 1)
+                cout << " ";
+        }
+        cout << "]\n";
+    }
+}
+
+void write_element(string **matrix, string item, int x, int y) {
+	matrix[x][y] = item;
+}
+
+void write_element(float **matrix, float item, int x, int y) {
+	matrix[x][y] = item;
+}
+
+void sort_rows(string **matrix, int n, int m) {
 	for (int i = 0; i < n; i++) {
 		std::sort(matrix[i], matrix[i] + m);
 	}
 }
 
-std::tuple<string, bool> get_user_input_string() {
-	string result;
-	cin >> result;
-
-	if (cin.eof()) {
-		exit(0);
+void transpose_matrix(string **source, string **dest, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+            dest[j][i] = source[i][j];
+        }
 	}
+}
 
-	if (cin.fail()) {
-		cin.clear();
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		return std::make_tuple("", false);
+void transpose_matrix(float **source, float **dest, int n, int m) {
+	for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            dest[j][i] = source[i][j];
+        }
 	}
+}
 
-	return std::make_tuple(result, true);
+void sort_rows(float **matrix, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		std::sort(matrix[i], matrix[i] + m);
+	}
 }
 
 int main() {
 	int valType, rowCount, colCount;
-	bool ok;
+    bool ok;
 
-	while (true) {
-		cout << "Please, choose matrix items type\n1: Int\n2: String\n> ";
-		std::tie(valType, ok) = get_user_input_int();
-		if (!ok)
-			continue;
+    while (true) {
+        cout << "Please, choose matrix items type\n1: String\n2: Float\n";
+        std::tie(valType, ok) = get_user_input_int();
+        if (!ok)
+            continue;
 
-		if (valType == 1 || valType == 2)
-			break;
+        if (valType == 1 || valType == 2)
+            break;
+    }
+    while (true) {
+        cout << "Please, enter number of colums (<=50)\n> ";
+        std::tie(colCount, ok) = get_user_input_int();
+        if (!ok)
+            continue;
+
+        if (colCount > 0 && colCount <= 50)
+            break;
 	}
 	while (true) {
-		cout << "Please, enter number of colums (<=50)\n> ";
-		std::tie(colCount, ok) = get_user_input_int();
-		if (!ok)
-			continue;
+        cout << "Please, enter number of rows (<=100)\n> ";
+        std::tie(rowCount, ok) = get_user_input_int();
+        if (!ok)
+            continue;
 
-		if (colCount > 0 && colCount <= 50)
-			break;
-	}
-	while (true) {
-		cout << "Please, enter number of rows (<=100)\n> ";
-		std::tie(rowCount, ok) = get_user_input_int();
-		if (!ok)
-			continue;
+        if (rowCount > 0 && rowCount <= 100)
+            break;
+    }
 
-		if (rowCount > 0 && rowCount <= 100)
-			break;
-	}
-
-	// code duplication, but nested templates do not work
-	if (valType == 1) {
-		int **m = init_matrix(int(), rowCount, colCount);
-		fill_matrix(m, rowCount, colCount, get_user_input_int);
-		print_matrix(m, rowCount, colCount);
-
-		int **tempM = init_matrix(int(), colCount, rowCount);
-		transpose_matrix(m, tempM, rowCount, colCount);
-		sort_rows(tempM, colCount, rowCount);
-		transpose_matrix(tempM, m, colCount, rowCount);
-
-		cout << endl;
-		print_matrix(m, rowCount, colCount);
-
-	} else {
-		string **m = init_matrix(string(), rowCount, colCount);
-		fill_matrix(m, rowCount, colCount, get_user_input_string);
-		print_matrix(m, rowCount, colCount);
+    if (valType == 1) {
+		string **matrix = init_matrix(string(), rowCount, colCount);
+		fill_matrix(matrix, rowCount, colCount);
+		print_matrix(matrix, rowCount, colCount);
 
 		string **tempM = init_matrix(string(), colCount, rowCount);
-		transpose_matrix(m, tempM, rowCount, colCount);
+		transpose_matrix(matrix, tempM, rowCount, colCount);
 		sort_rows(tempM, colCount, rowCount);
-		transpose_matrix(tempM, m, colCount, rowCount);
+        transpose_matrix(tempM, matrix, colCount, rowCount);
 
-		cout << endl;
-		print_matrix(m, rowCount, colCount);
+        cout << endl;
+        print_matrix(matrix, rowCount, colCount);
+    } else {
+		float **matrix = init_matrix(float(), rowCount, colCount);
+		fill_matrix(matrix, rowCount, colCount);
+		print_matrix(matrix, rowCount, colCount);
+
+		float **tempM = init_matrix(float(), colCount, rowCount);
+        transpose_matrix(matrix, tempM, rowCount, colCount);
+        sort_rows(tempM, colCount, rowCount);
+        transpose_matrix(tempM, matrix, colCount, rowCount);
+
+        cout << endl;
+		print_matrix(matrix, rowCount, colCount);
 	}
 
 	return 0;
