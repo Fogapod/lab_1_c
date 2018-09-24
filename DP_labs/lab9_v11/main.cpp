@@ -34,7 +34,6 @@ void print_matrix(T **matrix, int n, int m) {
 template <class T>
 void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
 	T value;
-	bool ok;
 	string typeName;
 
 	if (typeid(T) == typeid(int)) {
@@ -45,17 +44,16 @@ void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
 		typeName = "Char";
 	}
 
+	bool ok;
+
 	for(int i = 0; i < n; i++) {
 		for(int j = 0; j < m; j++) {
-			while (true) {
+			do {
 				cout << "Enter value of matrix[" << i << "][" << j << "] (" << typeName << ")\n> ";
 				std::tie(value, ok) = input_fn();
-				if (!ok)
-					continue;
+			} while(!ok);
 
-				matrix[i][j] = value;
-				break;
-			}
+			matrix[i][j] = value;
 		}
 	}
 }
@@ -63,18 +61,16 @@ void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
 template <class T>
 void transpose_matrix(T **source, T **dest, int n, int m) {
 	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++) {
+		for (int j = 0; j < m; j++)
 			dest[j][i] = source[i][j];
-		}
 }
 
 std::tuple<int, bool> get_user_input_int() {
 	int result;
 	cin >> result;
 
-	if (cin.eof()) {
+	if (cin.eof())
 		exit(0);
-	}
 
 	if (cin.fail()) {
 		cin.clear();
@@ -86,34 +82,32 @@ std::tuple<int, bool> get_user_input_int() {
 }
 
 std::tuple<float, bool> get_user_input_float() {
-    float result;
-    cin >> result;
-                                                                                                        if (cin.eof()) {                                                                                        exit(0);
-    }
+	float result;
+	cin >> result;
+	if (cin.eof())
+		exit(0);
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        return std::make_tuple(result, false);
-    }
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return std::make_tuple(result, false);
+	}
 
-    return std::make_tuple(result, true);
+	return std::make_tuple(result, true);
 }
 
 template <class T>
 void sort_rows(T **matrix, int n, int m) {
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
 		std::sort(matrix[i], matrix[i] + m);
-	}
 }
 
 std::tuple<char, bool> get_user_input_char() {
 	char result;
 	cin >> result;
 
-	if (cin.eof()) {
+	if (cin.eof())
 		exit(0);
-	}
 
 	if (cin.fail()) {
 		cin.clear();
@@ -185,15 +179,15 @@ int main() {
 	} else {
 		float **m = init_matrix(float(), rowCount, colCount);
 		fill_matrix(m, rowCount, colCount, get_user_input_float);
-        print_matrix(m, rowCount, colCount);
+		print_matrix(m, rowCount, colCount);
 
 		float **tempM = init_matrix(float(), colCount, rowCount);
-        transpose_matrix(m, tempM, rowCount, colCount);
-        sort_rows(tempM, colCount, rowCount);
-        transpose_matrix(tempM, m, colCount, rowCount);
+		transpose_matrix(m, tempM, rowCount, colCount);
+		sort_rows(tempM, colCount, rowCount);
+		transpose_matrix(tempM, m, colCount, rowCount);
 
-        cout << endl;
-        print_matrix(m, rowCount, colCount);
+		cout << endl;
+		print_matrix(m, rowCount, colCount);
 	}
 
 	return 0;
