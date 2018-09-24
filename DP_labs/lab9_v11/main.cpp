@@ -35,11 +35,20 @@ template <class T>
 void fill_matrix(T **matrix, int n, int m, std::tuple<T, bool>(*input_fn)()) {
 	T value;
 	bool ok;
+	string typeName;
+
+	if (typeid(T) == typeid(int)) {
+		typeName = "Int";
+	} else if (typeid(T) == typeid(float)) {
+		typeName = "Float";
+	} else {
+		typeName = "Char";
+	}
 
 	for(int i = 0; i < n; i++) {
 		for(int j = 0; j < m; j++) {
 			while (true) {
-				cout << "Enter value of matrix[" << i << "][" << j << "] (" << (typeid(T) == typeid(int)? "Int": "String") << ")\n> ";
+				cout << "Enter value of matrix[" << i << "][" << j << "] (" << typeName << ")\n> ";
 				std::tie(value, ok) = input_fn();
 				if (!ok)
 					continue;
