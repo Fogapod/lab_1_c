@@ -12,4 +12,5 @@ func reversePrint(arr []int, index int) {
 
 func main() {
 	reversePrint([]int{1, 2, 3, 4, 5}, 0)
+	fmt.Println()
 }

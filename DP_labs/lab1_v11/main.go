@@ -21,6 +21,7 @@ func main() {
 		fmt.Print("Please, enter x and y: ")
 		if _, err := fmt.Scanf("%f %f", &x, &y); err != nil {
 			fmt.Println("Invalid input")
+			continue
 		}
 
 		if x <= y-edgeLen || x >= y+edgeLen || x <= -y-edgeLen || x >= -y+edgeLen {
