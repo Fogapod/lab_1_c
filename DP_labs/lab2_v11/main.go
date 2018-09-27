@@ -5,7 +5,7 @@ import (
 	"math/rand"
 )
 
-const arrayLen = 20
+const arrayLen = 10
 
 func isPrime(n int) bool {
 	for i := 2; i < n-1; i++ {

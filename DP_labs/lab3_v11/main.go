@@ -23,7 +23,7 @@ func fillMatrix(m [][]int) {
 	for i := 0; i < rowCount; i++ {
 		m[i] = make([]int, colCount)
 		for j := 0; j < colCount; j++ {
-			m[i][j] = abs(j-i) + 1
+			m[i][j] = (rowCount+colCount)/2 - abs(i-j)
 		}
 	}
 }
@@ -34,30 +34,12 @@ func printMatrix(m [][]int) {
 	}
 }
 
-func transpose(m [][]int) [][]int {
-	result := make([][]int, len(m[0]))
-	for i := range result {
-		result[i] = make([]int, len(m))
-	}
+func sortLowerRow(m [][]int) [][]int {
+	sort.Slice(m[rowCount-1], func(i int, j int) bool {
+		return m[rowCount-1][i] > m[rowCount-1][j]
+	})
 
-	for y, s := range m {
-		for x, e := range s {
-			result[x][y] = e
-		}
-	}
-
-	return result
-}
-
-func sortCols(m [][]int) [][]int {
-	temp := transpose(m)
-	for k := 0; k < colCount; k++ {
-		sort.SliceStable(temp[k], func(i int, j int) bool {
-			return temp[k][i] < temp[k][j]
-		})
-	}
-
-	return transpose(temp)
+	return m
 }
 
 func main() {
@@ -67,5 +49,5 @@ func main() {
 	fmt.Println("Input:")
 	printMatrix(matrix)
 	fmt.Println("Sorted:")
-	printMatrix(sortCols(matrix))
+	printMatrix(sortLowerRow(matrix))
 }

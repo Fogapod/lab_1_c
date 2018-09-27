@@ -50,7 +50,7 @@ func (arr Array) Print() {
 	fmt.Println(arr.array)
 }
 
-func (arr Array) findFIrstMaxPos() int {
+func (arr Array) findFirstMaxPos() int {
 	maxItem := arr.array[len(arr.array)-1]
 	maxItemPos := len(arr.array) - 1
 
@@ -80,7 +80,7 @@ func main() {
 	arr := NewArray()
 	arr.FIll()
 	arr.Print()
-	fmt.Println("Position of first max item:", arr.findFIrstMaxPos())
+	fmt.Println("Position of first max item:", arr.findFirstMaxPos())
 	fmt.Println("Enter value to prepend before zeros:")
 	value := getInt()
 	arr.prependBeforeZeros(value)

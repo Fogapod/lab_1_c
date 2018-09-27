@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	wordRegex := regexp.MustCompile(`\w+`)
+	wordRegex := regexp.MustCompile(`[A-z]+`)
 	text, err := ioutil.ReadFile("Mark.Twain-Tom.Sawyer.txt")
 	if err != nil {
 		panic(err)
