@@ -9,19 +9,19 @@ using std::string;
 bool get_user_input_strng(string* dest) {
 	cin >> *dest;
 
-    if (cin.eof()) {
+	if (cin.eof()) {
 		exit(0);
 		// TODO: figure out how to recover cin/stdin from eof state
-        // return false;
-    }
+		// return false;
+	}
 
-    if (cin.fail()) {
+	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        return false;
-    }
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
 bool not_alphanumeric(char c) {
