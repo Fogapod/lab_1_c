@@ -8,6 +8,11 @@ Proc::Proc(const TASK_TYPE &type, void (*callback_fn)(Proc &))
 
 }
 
+Proc::~Proc()
+{
+
+}
+
 bool Proc::acceptsTask(const Task &task)
 {
     return accepted_type == task.type;
@@ -31,7 +36,7 @@ int Proc::getNumber()
 void Proc::execute(const Task &task)
 {
     state = 1;
-    std::cout << "[PROC " << getNumber() << "]Running task " << task.type + 1 << std::endl;
+    std::cout << "[PROC " << getNumber() << "]Running task" << std::endl;
     std::thread t(&Proc::executor, this, task);
     t.detach();
 }

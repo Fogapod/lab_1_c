@@ -16,13 +16,14 @@
 #include <stdlib.h>
 #include <thread>
 #include <chrono>
+#include <memory>
 
 #include "task.h"
 #include "proc.h"
 
-static std::vector<Proc *> procs;
-static std::queue<Task *> task_queue;
-static std::stack<Task *> task_stack;
+static std::vector<std::shared_ptr<Proc>> procs;
+static std::queue<std::shared_ptr<Task>> task_queue;
+static std::stack<std::shared_ptr<Task>> task_stack;
 
 void sleep_task()
 {
@@ -73,14 +74,14 @@ int main()
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     for (auto &i : {TASK_TYPE::ONE, TASK_TYPE::TWO, TASK_TYPE::THREE}) {
-        procs.push_back(new Proc(i, proc_ready));
+        procs.emplace_back(std::make_shared<Proc>(i, proc_ready));
     }
 
-    int task_type_to_insert;
-    Task *task;
+    int task_type_to_insert = -1;
+    std::shared_ptr<Task> task;
 
-    while (true) {
-        std::cout << "[SCRIPT]Enter task typer to insert (1-3): ";
+    while (task_type_to_insert != 0) {
+        std::cout << "[SCRIPT]Enter task type to insert (1-3) or 0 to exit: ";
         std::cin >> task_type_to_insert;
 
         if (std::cin.fail()) {
@@ -95,10 +96,12 @@ int main()
             continue;
         }
 
-        task = new Task();
+        task = std::make_shared<Task>();
         task->fn = &sleep_task;
 
         switch (task_type_to_insert) {
+        case 0:
+            continue;
         case 1:
             task->type = TASK_TYPE::ONE;
             break;
@@ -109,11 +112,13 @@ int main()
             task->type = TASK_TYPE::THREE;
             break;
         default:
-            std::cout << "[SCRIPT]Invalid task type" << std::endl;
+            std::cout << "[SCRIPT]Bad task type" << std::endl;
             continue;
         }
 
         task_queue.push(task);
         check_procs();
     }
+
+    return 0;
 }

@@ -14,6 +14,7 @@ class Proc
     void (*callback_fn)(Proc &);
 public:
     Proc(const TASK_TYPE &type, void (*callback_fn)(Proc &));
+    ~Proc();
 
     bool acceptsTask(const Task &task);
     bool isFree();
